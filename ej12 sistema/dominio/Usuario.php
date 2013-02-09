@@ -47,10 +47,11 @@ class Usuario
 
 	public static function load($id) 
 	{ 
+		//echo $id;
 		$usuarioPersistencia = new UsuarioPersistencia(); 
 		$datos_array = $usuarioPersistencia->load($id); 
 		foreach($datos_array as $usuario_array){ 
-			$usuario = new Usuario( $id, $usuario_array['nombre'], $usuario_array['apellido'] ); 
+			$usuario = new Usuario( $id, $usuario_array['nombreCliente'], $usuario_array['apellidosCliente'] ); 
 		} 
 
 		return $usuario; 

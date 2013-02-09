@@ -9,16 +9,17 @@ abstract class UsuarioPresentacion
 	static public function listadoUsuarios() 
 	{ 
 		$usuarios_arr = Usuario::getAll(); 
-		$retorno = '<ul>'; 
+		$retorno = '<div class="bs-docs-example"><table  class="table table-hover" width="25" ><tbody>'; 
+		
 		foreach($usuarios_arr as $objetoUsuario){ 
-			$retorno .= '<li>'.$objetoUsuario; 
+			$retorno .= '<tr><td>'.$objetoUsuario; 
 			$retorno .= " <a href='?modulo=detalle&id=".$objetoUsuario->getId() ."'>Mostrar</a> | "; 
 			$retorno .= " <a href='?modulo=modificarusuario&id=". $objetoUsuario->getId() ."'>Modificar</a> | "; 
 			$retorno .= " <a href='?modulo=eliminar&id=". $objetoUsuario->getId() ."'>Eliminar</a> | "; 
-			$retorno .='</li>'; 
+			$retorno .='</td></tr>'; 
 		} 
-		$retorno .= "<li><a href='?modulo=nuevousuario'>Nuevo Usuario</a>"; 
-		$retorno .= '</ul>'; 
+		$retorno .= "</tbody></table></div><a  class='btn btn-primary' href='?modulo=nuevousuario'>Nuevo Usuario</a>"; 
+		$retorno .= ''; 
 		return $retorno; 
 	} 
 	static public function detalle($id) 
@@ -51,13 +52,15 @@ abstract class UsuarioPresentacion
 
 	static private function _mostrarFormulario($id = "", $nombre = "", $apellido = "", $accion = "insertar") 
 	{ 
-		$retorno = ""; 
+		$retorno = "<br/><br/>"; 
 		$retorno = "<form action='?modulo=".$accion."' method='post'>"; 
 		$retorno .= "<input type='hidden' name='id' value='".$id."' />"; 
 		$retorno .= "Nombre:<input type='text' name='nombre' value='". $nombre."' /> "; 
 		$retorno .= "Apellido:<input type='text' name='apellido' value='".$apellido."' />"; 
-		$retorno .= "<input type='submit' name='submit' value='".ucwords($accion)."' />"; 
-		$retorno .= "</form>"; return $retorno; 
+		$retorno .= "<input  class='btn btn-primary' type='submit' name='submit' value='".ucwords($accion)."' />"; 
+		$retorno .= "</form>"; 
+
+		return $retorno; 
 	} 
 
 	static public function guardarUsuario($nombre, $apellido) 
@@ -66,3 +69,4 @@ abstract class UsuarioPresentacion
 		return $usuarioNuevo->guardarUsuario(); 
 	} 
 }
+

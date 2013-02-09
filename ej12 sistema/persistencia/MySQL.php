@@ -23,12 +23,14 @@ class MySQL implements ManejadorBaseDeDatosInterface
 
 	public function traerDatos(Sql $sql) 
 	{ 
+		//echo $sql;
 	
 		$resultado = mysql_query($sql, $this->_conexion); 
 		
 		if($resultado == 1){
 			$todo = 1;
 		}else{
+		
 			while ($fila = mysql_fetch_array($resultado, MYSQL_ASSOC)){ 
 				$todo[] = $fila; 
 			}

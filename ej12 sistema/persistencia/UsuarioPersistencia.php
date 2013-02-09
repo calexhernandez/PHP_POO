@@ -20,7 +20,7 @@ class UsuarioPersistencia
 		$sql = new Sql(); 
 		$sql->addTable('cliente'); 
 
-		echo $sql;
+		
 		return $bd->ejecutar($sql); 
 	} 
 
@@ -29,7 +29,9 @@ class UsuarioPersistencia
 		$bd = new BaseDeDatos(new MySQL()); 
 		$sql = new Sql(); 
 		$sql->addTable('cliente'); 
-		$sql->addWhere("idCliente = ".$id); 
+		$sql->addWhere("idCliente = ".$id);
+		//echo $sql;
+		//echo "<br>";
 		return $bd->ejecutar($sql); 
 	}
 	public function guardarUsuario($nombre, $apellido) 
@@ -43,7 +45,7 @@ class UsuarioPersistencia
 		$sql->addInsert("apellidosCliente"); 
 		$sql->addValue($nombre); 
 		$sql->addValue($apellido); 
-		echo $sql; 
+		//echo $sql; 
 		return $bd->ejecutar($sql); 
 	}
 
@@ -51,10 +53,11 @@ class UsuarioPersistencia
 	{ 
 		$bd = new BaseDeDatos (new MySQL()); 
 		$sql = new SQL(); $sql->addFuncion("update"); 
-		$sql->addTable("usuarios"); 
-		$sql->addSelect("nombre='".$nombre."'"); 
-		$sql->addSelect("apellido='".$apellido."'"); 
-		$sql->addWhere("id=".$id); 
+		$sql->addTable("cliente"); 
+		$sql->addSet("nombreCliente='".$nombre."'"); 
+		$sql->addSet("apellidosCliente='".$apellido."'"); 
+		$sql->addWhere("idCliente=".$id); 
+		//echo $sql;
 		return $bd->ejecutar($sql); 
 	} 
 
@@ -63,8 +66,9 @@ class UsuarioPersistencia
 		$bd = new BaseDeDatos (new MySQL()); 
 		$sql = new SQL(); 
 		$sql->addFuncion("delete"); 
-		$sql->addTable("usuarios"); 
-		$sql->addWhere("id=".$id); 
+		$sql->addTable("cliente"); 
+		$sql->addWhere("idCliente=".$id); 
+
 		return $bd->ejecutar($sql); 
 	} 
 }

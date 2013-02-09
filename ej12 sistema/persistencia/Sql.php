@@ -3,6 +3,7 @@ class Sql
 { 
 	private $_colWhere = array(); 
 	private $_colSelect = array('*'); 
+	private $_colSet = array(); 
 	private $_colInsert = array(); 
 	private $_colFrom = array(); 
 	private $_colFuncion = array();
@@ -28,6 +29,13 @@ class Sql
 		$this->_colSelect[] = $select;
 
 	}
+
+	public function addSet($set)
+	{
+		$this->_colSet[] = $set;
+
+	}
+
 
 	public function addInsert($insert)
 	{
@@ -118,14 +126,39 @@ switch ($funcion){
 		$select = implode(',',array_unique($this->_colSelect)); 
 		$from = implode(',',array_unique($this->_colFrom)); 
 		$where = implode(' AND ',array_unique($this->_colWhere)); 
-		
-		//return 'SELECT '.$select.' FROM '.$from.' WHERE '.$where; 
-		return 'SELECT '.$select.' FROM '.$from;
+
+				if($where){
+					return 'SELECT '.$select.' FROM '.$from.' WHERE '.$where; 	
+				}else{
+					return 'SELECT '.$select.' FROM '.$from;
+				}
 
 			break; 
 
+			case 'update': 
+
+				$set = implode(',',array_unique($this->_colSet)); 
+
+				$from = implode(',',array_unique($this->_colFrom)); 
+				$where = implode(' AND ',array_unique($this->_colWhere));
+
+
+				return 'update '. $from .' set '. $set .' where ' .$where;
+			break;
+
+			case 'delete': 
+
+				$set = implode(',',array_unique($this->_colSet)); 
+
+				$from = implode(',',array_unique($this->_colFrom)); 
+				$where = implode(' AND ',array_unique($this->_colWhere));
+
+
+				return 'delete from '.$from.' where '. $where;
+			break;
+
+
 }
-	
 	} 
 	
 	public function __toString() 
